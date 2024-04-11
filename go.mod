@@ -1,4 +1,4 @@
-module blackbeard-client
+module blackbeard
 
 go 1.22.2
 
