@@ -20,7 +20,7 @@ var sendCmd = &cobra.Command{
 blackbeard send -l avengers.torrent -m Movies`,
 	Run: func(cmd *cobra.Command, args []string) {
 		link, _ := cmd.Flags().GetString("l")
-		fmt.Println(link)
+		media, + := cmd.Flags().getString("m")
 	},
 }
 
@@ -33,6 +33,7 @@ func init() {
 	// and all subcommands, e.g.:
 	// sendCmd.PersistentFlags().String("foo", "", "A help for foo")
 	sendCmd.PersistentFlags().String("l", "", "Specify a magent or torrent link")
+	sendCmd.PersistentFlags().String("m", "", "Specify media type. Ex: Movies,TvShows or Anime")
 	// Cobra supports local flags which will only run when this command
 	// is called directly, e.g.:
 	// sendCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
