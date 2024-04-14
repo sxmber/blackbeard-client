@@ -25,7 +25,6 @@ blackbeard send -l avengers.torrent -m Movies`,
 		link, _ := cmd.Flags().GetString("l")
 		media, _ := cmd.Flags().GetString("m")
 		fmt.Println(link, media)
-		//example post request: curl -X POST -d '{"magnet":"https://nyaa.si/download/1785837.torrent", "media":"TvShows"}' http://192.168.1.5:7123
 
 		const url = "http://192.168.1.5:7123"
 		jsonData := fmt.Sprintf(`{"Magnet": "%s", "Media": "%s"}`, link, media)
