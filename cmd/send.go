@@ -22,14 +22,12 @@ var sendCmd = &cobra.Command{
 
 blackbeard send -l avengers.torrent -m Movies`,
 	Run: func(cmd *cobra.Command, args []string) {
-		link, _ := cmd.Flags().GetString("l")
-		media, _ := cmd.Flags().GetString("m")
+		link, _ := cmd.Flags().GetString("link")
+		media, _ := cmd.Flags().GetString("media")
 
-		if media != "Movies" && media != "Anime" && media != "TvShows" {
-			fmt.Println("You selected something other than Movies, Anime, or TvShows")
+		if media != "Movies" && media != "TvShows" && media != "Anime" {
+			fmt.Println("-m must be 'Movies' or 'TvShows' or 'Anime'")
 		} else {
-			fmt.Println(link, media)
-
 			const url = "http://192.168.1.5:7123"
 			jsonData := fmt.Sprintf(`{"Magnet": "%s", "Media": "%s"}`, link, media)
 			requestBody := strings.NewReader(jsonData)
@@ -48,17 +46,13 @@ blackbeard send -l avengers.torrent -m Movies`,
 
 func init() {
 	rootCmd.AddCommand(sendCmd)
+	sendCmd.PersistentFlags().StringP("link", "l", "", "Specify a magent or torrent link (required)")
+	sendCmd.PersistentFlags().StringP("media", "m", "", "Specify media type. Ex: Movies,TvShows or Anime (required)")
+	sendCmd.MarkPersistentFlagRequired("link")
+	sendCmd.MarkPersistentFlagRequired("media")
+	// sendCmd.PersistentFlags().String("l", "", "Specify a magent or torrent link (required)")
+	// sendCmd.MarkPersistentFlagRequired("l")
+	// sendCmd.PersistentFlags().String("m", "", "Specify media type. Ex: Movies,TvShows or Anime (required)")
+	// sendCmd.MarkPersistentFlagRequired("m")
 
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// sendCmd.PersistentFlags().String("foo", "", "A help for foo")
-	sendCmd.PersistentFlags().String("l", "", "Specify a magent or torrent link (required)")
-	sendCmd.MarkFlagRequired("l")
-	sendCmd.PersistentFlags().String("m", "", "Specify media type. Ex: Movies,TvShows or Anime (required)")
-	sendCmd.MarkFlagRequired("m")
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// sendCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
