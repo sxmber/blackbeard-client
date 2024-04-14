@@ -5,6 +5,9 @@ package cmd
 
 import (
 	"fmt"
+	"io/ioutil"
+	"net/http"
+	"strings"
 
 	"github.com/spf13/cobra"
 )
@@ -20,7 +23,21 @@ var sendCmd = &cobra.Command{
 blackbeard send -l avengers.torrent -m Movies`,
 	Run: func(cmd *cobra.Command, args []string) {
 		link, _ := cmd.Flags().GetString("l")
-		media, + := cmd.Flags().getString("m")
+		media, _ := cmd.Flags().GetString("m")
+		fmt.Println(link, media)
+		//example post request: curl -X POST -d '{"magnet":"https://nyaa.si/download/1785837.torrent", "media":"TvShows"}' http://192.168.1.5:7123
+
+		const url = "http://192.168.1.5:7123"
+		jsonData := fmt.Sprintf(`{"Magnet": "%s", "Media": "%s"}`, link, media)
+		requestBody := strings.NewReader(jsonData)
+		resp, err := http.Post(url, "application/json", requestBody)
+		if err != nil {
+			panic(err)
+		}
+		defer resp.Body.Close()
+
+		content, _ := ioutil.ReadAll(resp.Body)
+		fmt.Println(content)
 	},
 }
 
