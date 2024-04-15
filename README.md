@@ -5,9 +5,9 @@ Clone the repo
 
 ```$ git clone https://github.com/sxmber/blackbeard-client```
 
-Install using go
+cd and install using go
 
-```$ go install```
+```$ cd blackbeard-client && go install```
 
 # Usage
 
