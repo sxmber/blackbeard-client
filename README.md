@@ -5,6 +5,17 @@ Clone the repo
 
 ```$ git clone https://github.com/sxmber/blackbeard-client```
 
+Install golang and set global variables in ~/.profile (or equivalent)
+
+https://go.dev/doc/install
+
+```
+export PATH=$PATH:/usr/local/go/bin
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+
+```
+
 cd and install using go
 
 ```$ cd blackbeard-client && go install```
