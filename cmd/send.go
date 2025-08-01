@@ -38,7 +38,7 @@ blackbeard send -l avengers.torrent -m Movies`,
 			defer resp.Body.Close()
 
 			content, _ := ioutil.ReadAll(resp.Body)
-			fmt.Println(content)
+			fmt.Println(string(content))
 		}
 
 	},
